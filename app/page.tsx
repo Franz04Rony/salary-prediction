@@ -1,9 +1,23 @@
-import Image from "next/image";
+import { Navbar } from "@/components/navbar/Navbar";
+import { Button } from "@/components/button/Button";
+import { useState } from "react";
+import { Form } from "@/components/form/Form";
+import { Footer } from "@/components/footer/Footer";
+
+export const metadata = {
+  title: "Salary Predictor: An AI to predict your salary in data science job.",
+  description: "a page where you can predict your salary in any data science job"
+}
 
 export default function Home() {
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <span className="text-5xl">Holis Mundoo</span>
-    </main>
+    <>
+      <Navbar/>
+      <main>
+        <Form/>
+      </main>
+      <Footer/>
+    </>
   );
 }

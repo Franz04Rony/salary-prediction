@@ -13,11 +13,13 @@ export default function Home() {
 
   return (
     <>
-      <Navbar/>
-      <main>
-        <Form/>
-      </main>
-      <Footer/>
+      <div className="mx-auto relative">
+        <Navbar/>
+        <main>
+          <Form/>
+        </main>
+        <Footer/>
+      </div>
     </>
   );
 }

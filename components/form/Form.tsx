@@ -60,10 +60,21 @@ export const Form = () => {
   ]
 
   const handleButton = async() => {
-    
-    const result = await getPrediction(data.year, data.job, data.exp, data.mode)
-    console.log(result)
-    setPrediction(result.salario)
+
+    if( 
+      data.year != 0 &&
+      data.job.some((e)=> e===1) &&
+      data.exp.some((e)=> e===1) &&
+      data.mode.some((e)=> e===1)
+      ){
+      const result = await getPrediction(data.year, data.job, data.exp, data.mode)
+      //console.log(result)
+      const predictionPerMonth = +result.salario / 12
+      setPrediction("$"+predictionPerMonth + "")
+    }
+    else{
+      setPrediction("¡Hay campos sin rellenar! rellénalos antes de predecir")
+    }
   }
 
   const clear = (event: any) => {
@@ -197,9 +208,14 @@ export const Form = () => {
           }
         </datalist>
       </form>
-      <aside className="flex justify-center flex-col items-center gap-3 mt-4 mb-4">
+      <aside className="flex justify-center flex-col items-center gap-7 mt-8 mb-8">
         <Button label={"start"} handle= {handleButton}/>
-        <span>result: {prediction}</span>
+        <span>
+          Predicción Sueldo Mensual: 
+          <p className="text-amber-200 text-center">
+            {prediction}
+          </p>
+        </span>
       </aside>
     </section>
   )

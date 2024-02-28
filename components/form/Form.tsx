@@ -1,6 +1,7 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "../button/Button"
+import { getPrediction } from "../api/getPrediction"
 
 interface FillYears {
   a: number,
@@ -14,8 +15,22 @@ const fillYears = ({a, b, years}:FillYears) => {
   }
 }
 
+interface Data{
+  year: number,
+  job: number[],
+  exp: number[],
+  mode: number[]
+}
+
 export const Form = () => {
-  const [result, setResult] = useState("oli")
+
+  const [data, setData] = useState<Data>({
+    year: 0,
+    job: [],
+    exp: [],
+    mode: []
+  })
+  const [prediction, setPrediction] = useState("")
 
   const años: Array<number> = []
   fillYears({a:2020, b:2030, years:años})
@@ -44,19 +59,71 @@ export const Form = () => {
     "Remoto"
   ]
 
-  const handleButton = () => {
-    setResult("wtf")
+  const handleButton = async() => {
+    
+    const result = await getPrediction(data.year, data.job, data.exp, data.mode)
+    console.log(result)
+    setPrediction(result.salario)
   }
 
   const clear = (event: any) => {
     event.target.value = ""
   }
 
-  const handleChange = (event: any) => {
+  const handleChangeYear = (event: any) => {
+    setData({
+      ...data,
+      year: event.target.value
+    })
     if (!event.nativeEvent.inputType) {
       event.target.blur();
     }
-  };
+  }
+  const handleChangeJob = (event: any) => {
+    const currentJob = event.target.value
+    const arrJob = []
+    for (let i = 0; i < jobCategories.length; i++){
+      if(jobCategories[i] === currentJob) arrJob.push(1)
+      else arrJob.push(0)
+    }
+    setData({
+      ...data,
+      job: arrJob
+    })
+    if (!event.nativeEvent.inputType) {
+      event.target.blur();
+    }
+  }
+  const handleChangeExp = (event: any) => {
+    const currentExp = event.target.value
+    const arrExp = []
+    for (let i = 0; i < expLevels.length; i++){
+      if(expLevels[i] === currentExp) arrExp.push(1)
+      else arrExp.push(0)
+    }
+    setData({
+      ...data,
+      exp: arrExp
+    })
+    if (!event.nativeEvent.inputType) {
+      event.target.blur();
+    }
+  }
+  const handleChangeMode = (event: any) => {
+    const currentMode = event.target.value
+    const arrMode = []
+    for (let i = 0; i < workType.length; i++){
+      if(workType[i] === currentMode) arrMode.push(1)
+      else arrMode.push(0)
+    }
+    setData({
+      ...data,
+      mode: arrMode
+    })
+    if (!event.nativeEvent.inputType) {
+      event.target.blur();
+    }
+  }
 
   return (
     <section className="flex justify-center flex-col items-center gap-12 mt-16">
@@ -66,7 +133,7 @@ export const Form = () => {
           <input type="text" list="años" 
             onClick={clear}
             onFocus={clear}
-            onChange={handleChange}
+            onChange={handleChangeYear}
             className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
             placeholder={años[0]+""}
           />
@@ -83,7 +150,7 @@ export const Form = () => {
           <input type="text" list="jobCategories" 
             onClick={clear}
             onFocus={clear}
-            onChange={handleChange}
+            onChange={handleChangeJob}
             className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
             placeholder={jobCategories[0]}
           />
@@ -100,7 +167,7 @@ export const Form = () => {
           <input type="text" list="expLevels" 
             onClick={clear}
             onFocus={clear}
-            onChange={handleChange}
+            onChange={handleChangeExp}
             className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
             placeholder={expLevels[0]}
           />
@@ -117,7 +184,7 @@ export const Form = () => {
           <input type="text" list="workType" 
             onClick={clear}
             onFocus={clear}
-            onChange={handleChange}
+            onChange={handleChangeMode}
             className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
             placeholder={workType[0]}
           />
@@ -132,7 +199,7 @@ export const Form = () => {
       </form>
       <aside className="flex justify-center flex-col items-center gap-3 mt-4 mb-4">
         <Button label={"start"} handle= {handleButton}/>
-        <span>result: {result}</span>
+        <span>result: {prediction}</span>
       </aside>
     </section>
   )

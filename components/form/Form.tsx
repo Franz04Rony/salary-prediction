@@ -139,13 +139,13 @@ export const Form = () => {
   return (
     <section className="flex justify-center flex-col items-center gap-12 mt-16">
       <form action="" className="flex gap-12 flex-wrap justify-center w-[480px] lg:w-[770px]">
-        <label className="flex gap-4">
+        <label className="flex gap-4 text-[#C4A7E7]">
           Año:
           <input type="text" list="años" 
             onClick={clear}
             onFocus={clear}
             onChange={handleChangeYear}
-            className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
+            className="text-black focus:outline-8 focus:outline-[#9CCFD8] rounded-full pl-4"
             placeholder={años[0]+""}
           />
         </label>
@@ -156,13 +156,13 @@ export const Form = () => {
             ))
           }
         </datalist>
-        <label className="flex gap-4">
+        <label className="flex gap-4 text-[#C4A7E7]">
           Trabajo: 
           <input type="text" list="jobCategories" 
             onClick={clear}
             onFocus={clear}
             onChange={handleChangeJob}
-            className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
+            className="text-black focus:outline-8 focus:outline-[#9CCFD8] rounded-full pl-4"
             placeholder={jobCategories[0]}
           />
         </label>
@@ -173,13 +173,13 @@ export const Form = () => {
             ))
           }
         </datalist>
-        <label className="flex gap-4">
+        <label className="flex gap-4 text-[#C4A7E7]">
           experiencia:
           <input type="text" list="expLevels" 
             onClick={clear}
             onFocus={clear}
             onChange={handleChangeExp}
-            className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
+            className="text-black focus:outline-8 focus:outline-[#9CCFD8] rounded-full pl-4"
             placeholder={expLevels[0]}
           />
         </label>
@@ -190,13 +190,13 @@ export const Form = () => {
             ))
           }
         </datalist>
-        <label className="flex gap-4">
+        <label className="flex gap-4 text-[#C4A7E7]">
           Modalidad:
           <input type="text" list="workType" 
             onClick={clear}
             onFocus={clear}
             onChange={handleChangeMode}
-            className="text-black focus:outline-8 focus:outline-[#9CCFD8]"
+            className="text-black focus:outline-8 focus:outline-[#9CCFD8] rounded-full pl-4"
             placeholder={workType[0]}
           />
         </label>
@@ -210,7 +210,7 @@ export const Form = () => {
       </form>
       <aside className="flex justify-center flex-col items-center gap-7 mt-8 mb-8">
         <Button label={"start"} handle= {handleButton}/>
-        <span>
+        <span className="text-xl">
           Predicción Sueldo Mensual: 
           <p className="text-amber-200 text-center">
             {prediction}
